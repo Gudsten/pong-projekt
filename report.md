@@ -1,5 +1,4 @@
 #Pong med en twist
-
 import turtle
 import time
 
@@ -30,15 +29,7 @@ paddle_b.color("white")
 paddle_b.shapesize(stretch_wid=6, stretch_len=1)
 paddle_b.penup()
 paddle_b.goto(350, 0)
- # Obstacle and ball collision
-    if obstacle_left.isvisible() and (-195 < ball.xcor() < -155 and obstacle_left.ycor() - 50 < ball.ycor() < obstacle_left.ycor() + 50):
-        if abs(ball.xcor() + 175) > abs(ball.ycor()):
-            ball.dx *= -1
-        else:
-            ball.dy *= -1
 
-    if obstacle_right.isvisible() and (155 < ball.xcor() < 195 and obstacle_right.ycor() - 50 < ball.ycor() < obstacle_right.ycor() + 50):
-        if abs(ball.xcor() - 175) > abs(ball.ycor()):
-            ball.dx *= -1
-        else:
-            ball.dy *= -1
+
+
+
