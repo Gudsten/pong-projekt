@@ -1,5 +1,6 @@
 import turtle
-import time 
+import time
+
 win = turtle.Screen()
 win.title("Pong Game")
 win.bgcolor("black")
@@ -40,24 +41,6 @@ ball.goto(0, 0)
 ball.dx = 0.2
 ball.dy = 0.2
 
-# Obstacles
-obstacle_left = turtle.Turtle()
-obstacle_left.speed(0)
-obstacle_left.shape("square")
-obstacle_left.color("red")
-obstacle_left.shapesize(stretch_wid=5, stretch_len=2)
-obstacle_left.penup()
-obstacle_left.goto(-175, 0)
-obstacle_left.hideturtle()
-
-obstacle_right = turtle.Turtle()
-obstacle_right.speed(0)
-obstacle_right.shape("square")
-obstacle_right.color("red")
-obstacle_right.shapesize(stretch_wid=5, stretch_len=2)
-obstacle_right.penup()
-obstacle_right.goto(175, 0)
-obstacle_right.hideturtle()
 pen = turtle.Turtle()
 pen.speed(0)
 pen.color("white")
@@ -91,21 +74,6 @@ win.onkeypress(paddle_a_up, "w")
 win.onkeypress(paddle_a_down, "s")
 win.onkeypress(paddle_b_up, "Up")
 win.onkeypress(paddle_b_down, "Down")
-
-# Show obstacles
-def show_obstacles():
-    obstacle_left.showturtle()
-    obstacle_right.showturtle()
-
-# Hide obstacles
-def hide_obstacles():
-    obstacle_left.hideturtle()
-    obstacle_right.hideturtle()
-
-# Main game loop
-start_time = time.time()
-while True:
-    win.update()
 
 powerup_pen = turtle.Turtle()
 powerup_pen.speed(0)
@@ -144,10 +112,13 @@ def bigPlatform():
     global big_platform_activated_a, big_platform_activated_b
     if score_a >= 5 and not big_platform_activated_a:
         paddle_a.shapesize(stretch_wid=12, stretch_len=1)
+
         display_powerup_text(1, "Big Platform")
+
         big_platform_activated_a = True
     if score_b >= 5 and not big_platform_activated_b:
         paddle_b.shapesize(stretch_wid=12, stretch_len=1)
+        
         display_powerup_text(2, "Big Platform")
         big_platform_activated_b = True
 
@@ -164,10 +135,40 @@ def fastPlatform():
         display_powerup_text(2, "Fast Platform")
         fast_platform_activated_b = True
 
+# Obstacles
+obstacle_left = turtle.Turtle()
+obstacle_left.speed(0)
+obstacle_left.shape("square")
+obstacle_left.color("red")
+obstacle_left.shapesize(stretch_wid=5, stretch_len=2)
+obstacle_left.penup()
+obstacle_left.goto(-175, 0)
+obstacle_left.hideturtle()
+
+obstacle_right = turtle.Turtle()
+obstacle_right.speed(0)
+obstacle_right.shape("square")
+obstacle_right.color("red")
+obstacle_right.shapesize(stretch_wid=5, stretch_len=2)
+obstacle_right.penup()
+obstacle_right.goto(175, 0)
+obstacle_right.hideturtle()
+
+# Show obstacles
+def show_obstacles():
+    obstacle_left.showturtle()
+    obstacle_right.showturtle()
+
+# Hide obstacles
+def hide_obstacles():
+    obstacle_left.hideturtle()
+    obstacle_right.hideturtle()
+
+start_time = time.time()
 while True:
     win.update()
 
-current_time = time.time()
+    current_time = time.time()
     elapsed_time = current_time - start_time
 
     # Toggle obstacles every 15 seconds
@@ -213,7 +214,7 @@ current_time = time.time()
         ball.setx(-340)
         ball.dx *= -1
 
- # Obstacle and ball collision
+    # Obstacle and ball collision
     if obstacle_left.isvisible() and (-195 < ball.xcor() < -155 and obstacle_left.ycor() - 50 < ball.ycor() < obstacle_left.ycor() + 50):
         if abs(ball.xcor() + 175) > abs(ball.ycor()):
             ball.dx *= -1
@@ -237,4 +238,3 @@ current_time = time.time()
         pen.goto(0, 0)
         pen.write("Spelare 2 vinner!!!", move=True, align="center", font=("Comic Sans", 30, "bold"))
         break
-
