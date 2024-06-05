@@ -1,7 +1,5 @@
 import turtle
-import time
 
-# Set up the screen
 win = turtle.Screen()
 win.title("Pong Game")
 win.bgcolor("black")
@@ -10,8 +8,13 @@ win.tracer(0)
 
 score_a = 0
 score_b = 0
+win_condition = 25
 
-# Paddle A
+big_platform_activated_a = False
+big_platform_activated_b = False
+fast_platform_activated_a = False
+fast_platform_activated_b = False
+
 paddle_a = turtle.Turtle()
 paddle_a.speed(0)
 paddle_a.shape("square")
@@ -20,7 +23,6 @@ paddle_a.shapesize(stretch_wid=6, stretch_len=1)
 paddle_a.penup()
 paddle_a.goto(-350, 0)
 
-# Paddle B
 paddle_b = turtle.Turtle()
 paddle_b.speed(0)
 paddle_b.shape("square")
@@ -29,7 +31,6 @@ paddle_b.shapesize(stretch_wid=6, stretch_len=1)
 paddle_b.penup()
 paddle_b.goto(350, 0)
 
-# Ball
 ball = turtle.Turtle()
 ball.speed(20)
 ball.shape("square")
@@ -39,93 +40,103 @@ ball.goto(0, 0)
 ball.dx = 0.2
 ball.dy = 0.2
 
-# Obstacles
-obstacle_left = turtle.Turtle()
-obstacle_left.speed(0)
-obstacle_left.shape("square")
-obstacle_left.color("red")
-obstacle_left.shapesize(stretch_wid=5, stretch_len=2)
-obstacle_left.penup()
-obstacle_left.goto(-175, 0)
-obstacle_left.hideturtle()
-
-obstacle_right = turtle.Turtle()
-obstacle_right.speed(0)
-obstacle_right.shape("square")
-obstacle_right.color("red")
-obstacle_right.shapesize(stretch_wid=5, stretch_len=2)
-obstacle_right.penup()
-obstacle_right.goto(175, 0)
-obstacle_right.hideturtle()
-
 pen = turtle.Turtle()
 pen.speed(0)
 pen.color("white")
 pen.penup()
 pen.hideturtle()
 pen.goto(0, 260)
-pen.write("Spelare 1: [0] Spelare 2: (0)", align="center", font=(24))
+pen.write("Spelare 1: [0] Spelare 2: (0)", align="center", font=("Courier", 24))
 
-# Function to move paddle A up
 def paddle_a_up():
     y = paddle_a.ycor()
     y += 20
     paddle_a.sety(y)
 
-# Function to move paddle A down
 def paddle_a_down():
     y = paddle_a.ycor()
     y -= 20
     paddle_a.sety(y)
 
-# Function to move paddle B up
 def paddle_b_up():
     y = paddle_b.ycor()
     y += 20
     paddle_b.sety(y)
 
-# Function to move paddle B down
 def paddle_b_down():
     y = paddle_b.ycor()
     y -= 20
     paddle_b.sety(y)
 
-# Keyboard bindings
 win.listen()
 win.onkeypress(paddle_a_up, "w")
 win.onkeypress(paddle_a_down, "s")
 win.onkeypress(paddle_b_up, "Up")
 win.onkeypress(paddle_b_down, "Down")
 
-# Show obstacles
-def show_obstacles():
-    obstacle_left.showturtle()
-    obstacle_right.showturtle()
+powerup_pen = turtle.Turtle()
+powerup_pen.speed(0)
+powerup_pen.color("yellow")
+powerup_pen.penup()
+powerup_pen.hideturtle()
 
-# Hide obstacles
-def hide_obstacles():
-    obstacle_left.hideturtle()
-    obstacle_right.hideturtle()
+def display_powerup_text(player, powerup):
+    powerup_pen.clear()
+    powerup_pen.goto(0, 0)
+    if player == 1:
+        powerup_pen.write(f"Spelare 1 fick {powerup}!!", align="center", font=("Courier", 24))
+    else:
+        powerup_pen.write(f"Spelare 2 fick {powerup}!", align="center", font=("Courier", 24))
+    
+    win.ontimer(lambda: start_corner_timer(player, powerup), 2000)
 
-# Main game loop
-start_time = time.time()
+def start_corner_timer(player, powerup):
+    powerup_pen.clear()
+    move_powerup_text(player, powerup, 10)
+
+def move_powerup_text(player, powerup, time_left):
+    powerup_pen.clear()
+    if player == 1:
+        powerup_pen.goto(-350, 250)
+    else:
+        powerup_pen.goto(350, 250)
+
+    if time_left > 0:
+        powerup_pen.write(f"{powerup}: {time_left}s", align="center", font=("Courier", 18))
+        win.ontimer(lambda: move_powerup_text(player, powerup, time_left - 1), 1000)
+    else:
+        powerup_pen.clear()
+
+def bigPlatform():
+    global big_platform_activated_a, big_platform_activated_b
+    if score_a >= 5 and not big_platform_activated_a:
+        paddle_a.shapesize(stretch_wid=12, stretch_len=1)
+        display_powerup_text(1, "Big Platform")
+        big_platform_activated_a = True
+    if score_b >= 5 and not big_platform_activated_b:
+        paddle_b.shapesize(stretch_wid=12, stretch_len=1)
+        display_powerup_text(2, "Big Platform")
+        big_platform_activated_b = True
+
+def fastPlatform(): 
+    global fast_platform_activated_a, fast_platform_activated_b
+    if score_a >= 10 and not fast_platform_activated_a:
+        win.onkeypress(lambda: paddle_a.sety(paddle_a.ycor() + 40), "w")
+        win.onkeypress(lambda: paddle_a.sety(paddle_a.ycor() - 40), "s")
+        display_powerup_text(1, "Fast Platform")
+        fast_platform_activated_a = True
+    if score_b >= 10 and not fast_platform_activated_b:
+        win.onkeypress(lambda: paddle_b.sety(paddle_b.ycor() + 40), "Up")
+        win.onkeypress(lambda: paddle_b.sety(paddle_b.ycor() - 40), "Down")
+        display_powerup_text(2, "Fast Platform")
+        fast_platform_activated_b = True
+
 while True:
     win.update()
 
-    current_time = time.time()
-    elapsed_time = current_time - start_time
-
-    # Toggle obstacles every 15 seconds
-    if int(elapsed_time // 15) % 2 == 0:
-        show_obstacles()
-    else:
-        hide_obstacles()
-
-    # Move the ball
     ball.setx(ball.xcor() + ball.dx)
     ball.sety(ball.ycor() + ball.dy)
 
-    # Border checking
     if ball.ycor() > 290:
         ball.sety(290)
         ball.dy *= -1
@@ -139,18 +150,19 @@ while True:
         ball.dx *= -1
         score_a += 1
         pen.clear()
-        pen.write("Spelare 1: ({}) Spelare 2: ({})".format(score_a, score_b), align="center", font=(24))
+        pen.write("Spelare 1: [{}] Spelare 2: ({})".format(score_a, score_b), align="center", font=("Courier", 24))
         fastPlatform()
+        bigPlatform()
 
     if ball.xcor() < -390:
         ball.goto(0, 0)
         ball.dx *= -1
         score_b += 1
         pen.clear()
-        pen.write("Spelare 1: [{}] Spelare 2: ({})".format(score_a, score_b), align="center", font=(24))
+        pen.write("Spelare 1: [{}] Spelare 2: ({})".format(score_a, score_b), align="center", font=("Courier", 24))
         fastPlatform()
+        bigPlatform()
 
-    # Paddle and ball collisions
     if (ball.dx > 0 and ball.xcor() > 340 and paddle_b.ycor() - 50 < ball.ycor() < paddle_b.ycor() + 50):
         ball.setx(340)
         ball.dx *= -1
@@ -159,43 +171,15 @@ while True:
         ball.setx(-340)
         ball.dx *= -1
 
- # Obstacle and ball collision
-    if obstacle_left.isvisible() and (-195 < ball.xcor() < -155 and obstacle_left.ycor() - 50 < ball.ycor() < obstacle_left.ycor() + 50):
-        if abs(ball.xcor() + 175) > abs(ball.ycor()):
-            ball.dx *= -1
-        else:
-            ball.dy *= -1
+    if score_a >= 25:
+        pen.penup()
+        pen.goto(0, 0)
+        pen.write("Spelare 1 vinner!!!", move=True, align="center", font=("Comic Sans", 30, "bold"))
+        break
 
-    if obstacle_right.isvisible() and (155 < ball.xcor() < 195 and obstacle_right.ycor() - 50 < ball.ycor() < obstacle_right.ycor() + 50):
-        if abs(ball.xcor() - 175) > abs(ball.ycor()):
-            ball.dx *= -1
-        else:
-            ball.dy *= -1
+    if score_b >= 25:
+        pen.penup()
+        pen.goto(0, 0)
+        pen.write("Spelare 2 vinner!!!", move=True, align="center", font=("Comic Sans", 30, "bold"))
+        break
 
-    def fastPlatform(): 
-        if score_a >= 5:
-            win.onkeypress(paddle_a_up, "w")
-            win.onkeypress(paddle_a_down, "s")
-        if score_b >= 5:
-            win.onkeypress(paddle_b_up, "Up")
-            win.onkeypress(paddle_b_down, "Down")
-
-    def paddle_a_up():
-        y = paddle_a.ycor()
-        y += 40
-        paddle_a.sety(y)
-
-    def paddle_a_down():
-        y = paddle_a.ycor()
-        y -= 40
-        paddle_a.sety(y)
-
-    def paddle_b_up():
-        y = paddle_b.ycor()
-        y += 40
-        paddle_b.sety(y)
-
-    def paddle_b_down():
-        y = paddle_b.ycor()
-        y -= 40
-        paddle_b.sety(y)
