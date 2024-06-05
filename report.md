@@ -1,18 +1,21 @@
 <table>
   <thead>
     <tr>
-      <th>#import turtle</th>
+      <th>#pong projekt</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>#import time</td>
+      <td>import turtle</td>
+    </tr>
+    <tr>
+      <td>import time</td>
     </tr>
     <tr>
       <td>&nbsp;</td>
     </tr>
     <tr>
-      <td># Set up the screen</td>
+      <td>#sets up the screen</td>
     </tr>
     <tr>
       <td>win = turtle.Screen()</td>
@@ -33,16 +36,40 @@
       <td>&nbsp;</td>
     </tr>
     <tr>
+      <td>#Initial scores</td>
+    </tr>
+    <tr>
       <td>score_a = 0</td>
     </tr>
     <tr>
       <td>score_b = 0</td>
     </tr>
     <tr>
+      <td>win_condition = 25</td>
+    </tr>
+    <tr>
       <td>&nbsp;</td>
     </tr>
     <tr>
-      <td># Paddle A</td>
+      <td>#Powerup activation flags</td>
+    </tr>
+    <tr>
+      <td>big_platform_activated_a = False</td>
+    </tr>
+    <tr>
+      <td>big_platform_activated_b = False</td>
+    </tr>
+    <tr>
+      <td>fast_platform_activated_a = False</td>
+    </tr>
+    <tr>
+      <td>fast_platform_activated_b = False</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>#Paddle a</td>
     </tr>
     <tr>
       <td>paddle_a = turtle.Turtle()</td>
@@ -69,7 +96,7 @@
       <td>&nbsp;</td>
     </tr>
     <tr>
-      <td># Paddle B</td>
+      <td>#Paddle b</td>
     </tr>
     <tr>
       <td>paddle_b = turtle.Turtle()</td>
@@ -96,7 +123,7 @@
       <td>&nbsp;</td>
     </tr>
     <tr>
-      <td># Ball</td>
+      <td>#Ball</td>
     </tr>
     <tr>
       <td>ball = turtle.Turtle()</td>
@@ -121,6 +148,306 @@
     </tr>
     <tr>
       <td>ball.dy = 0.2</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>#Score display</td>
+    </tr>
+    <tr>
+      <td>pen = turtle.Turtle()</td>
+    </tr>
+    <tr>
+      <td>pen.speed(0)</td>
+    </tr>
+    <tr>
+      <td>pen.color("white")</td>
+    </tr>
+    <tr>
+      <td>pen.penup()</td>
+    </tr>
+    <tr>
+      <td>pen.hideturtle()</td>
+    </tr>
+    <tr>
+      <td>pen.goto(0, 260)</td>
+    </tr>
+    <tr>
+      <td>pen.write("Spelare 1: [0] Spelare 2: (0)", align="center", font=("Courier", 24))</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>#Function to move paddle a</td>
+    </tr>
+    <tr>
+      <td>def paddle_a_up():</td>
+    </tr>
+    <tr>
+      <td>y = paddle_a.ycor()</td>
+    </tr>
+    <tr>
+      <td>y += 20</td>
+    </tr>
+    <tr>
+      <td>paddle_a.sety(y)</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>def paddle_a_down():</td>
+    </tr>
+    <tr>
+      <td>y = paddle_a.ycor()</td>
+    </tr>
+    <tr>
+      <td>y -= 20</td>
+    </tr>
+    <tr>
+      <td>paddle_a.sety(y)</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>#Function to move paddle b</td>
+    </tr>
+    <tr>
+      <td>def paddle_b_up():</td>
+    </tr>
+    <tr>
+      <td>y = paddle_b.ycor()</td>
+    </tr>
+    <tr>
+      <td>y += 20</td>
+    </tr>
+    <tr>
+      <td>paddle_b.sety(y)</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>def paddle_b_down():</td>
+    </tr>
+    <tr>
+      <td>y = paddle_b.ycor()</td>
+    </tr>
+    <tr>
+      <td>y -= 20</td>
+    </tr>
+    <tr>
+      <td>paddle_b.sety(y)</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>#Keybord bindings</td>
+    </tr>
+    <tr>
+      <td>win.listen()</td>
+    </tr>
+    <tr>
+      <td>win.onkeypress(paddle_a_up, "w")</td>
+    </tr>
+    <tr>
+      <td>win.onkeypress(paddle_a_down, "s")</td>
+    </tr>
+    <tr>
+      <td>win.onkeypress(paddle_b_up, "Up")</td>
+    </tr>
+    <tr>
+      <td>win.onkeypress(paddle_b_down, "Down")</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>#Power up text display</td>
+    </tr>
+    <tr>
+      <td>powerup_pen = turtle.Turtle()</td>
+    </tr>
+    <tr>
+      <td>powerup_pen.speed(0)</td>
+    </tr>
+    <tr>
+      <td>powerup_pen.color("yellow")</td>
+    </tr>
+    <tr>
+      <td>powerup_pen.penup()</td>
+    </tr>
+    <tr>
+      <td>powerup_pen.hideturtle()</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>def display_powerup_text(player, powerup):</td>
+    </tr>
+    <tr>
+      <td>powerup_pen.clear()</td>
+    </tr>
+    <tr>
+      <td>powerup_pen.goto(0, 0)</td>
+    </tr>
+    <tr>
+      <td>if player == 1:</td>
+    </tr>
+    <tr>
+      <td>powerup_pen.write(f"Spelare 1 fick {powerup}!!", align="center", font=("Courier", 24))</td>
+    </tr>
+    <tr>
+      <td>else:</td>
+    </tr>
+    <tr>
+      <td>powerup_pen.write(f"Spelare 2 fick {powerup}!", align="center", font=("Courier", 24))</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>win.ontimer(lambda: start_corner_timer(player, powerup), 2000)</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>def start_corner_timer(player, powerup):</td>
+    </tr>
+    <tr>
+      <td>powerup_pen.clear()</td>
+    </tr>
+    <tr>
+      <td>move_powerup_text(player, powerup, 10)</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>def move_powerup_text(player, powerup, time_left):</td>
+    </tr>
+    <tr>
+      <td>powerup_pen.clear()</td>
+    </tr>
+    <tr>
+      <td>if player == 1:</td>
+    </tr>
+    <tr>
+      <td>powerup_pen.goto(-350, 250)</td>
+    </tr>
+    <tr>
+      <td>else:</td>
+    </tr>
+    <tr>
+      <td>powerup_pen.goto(350, 250)</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>if time_left > 0:</td>
+    </tr>
+    <tr>
+      <td>powerup_pen.write(f"{powerup}: {time_left}s", align="center", font=("Courier", 18))</td>
+    </tr>
+    <tr>
+      <td>win.ontimer(lambda: move_powerup_text(player, powerup, time_left - 1), 1000)</td>
+    </tr>
+    <tr>
+      <td>else:</td>
+    </tr>
+    <tr>
+      <td>powerup_pen.clear()</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>#Functions to activate powerups</td>
+    </tr>
+    <tr>
+      <td>def bigPlatform():</td>
+    </tr>
+    <tr>
+      <td>global big_platform_activated_a, big_platform_activated_b</td>
+    </tr>
+    <tr>
+      <td>if score_a >= 5 and not big_platform_activated_a:</td>
+    </tr>
+    <tr>
+      <td>paddle_a.shapesize(stretch_wid=12, stretch_len=1)</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>display_powerup_text(1, "Big Platform")</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>big_platform_activated_a = True</td>
+    </tr>
+    <tr>
+      <td>if score_b >= 5 and not big_platform_activated_b:</td>
+    </tr>
+    <tr>
+      <td>paddle_b.shapesize(stretch_wid=12, stretch_len=1)</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>display_powerup_text(2, "Big Platform")</td>
+    </tr>
+    <tr>
+      <td>big_platform_activated_b = True</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>def fastPlatform():</td>
+    </tr>
+    <tr>
+      <td>global fast_platform_activated_a, fast_platform_activated_b</td>
+    </tr>
+    <tr>
+      <td>if score_a >= 10 and not fast_platform_activated_a:</td>
+    </tr>
+    <tr>
+      <td>win.onkeypress(lambda: paddle_a.sety(paddle_a.ycor() + 40), "w")</td>
+    </tr>
+    <tr>
+      <td>win.onkeypress(lambda: paddle_a.sety(paddle_a.ycor() - 40), "s")</td>
+    </tr>
+    <tr>
+      <td>display_powerup_text(1, "Fast Platform")</td>
+    </tr>
+    <tr>
+      <td>fast_platform_activated_a = True</td>
+    </tr>
+    <tr>
+      <td>if score_b >= 10 and not fast_platform_activated_b:</td>
+    </tr>
+    <tr>
+      <td>win.onkeypress(lambda: paddle_b.sety(paddle_b.ycor() + 40), "Up")</td>
+    </tr>
+    <tr>
+      <td>win.onkeypress(lambda: paddle_b.sety(paddle_b.ycor() - 40), "Down")</td>
+    </tr>
+    <tr>
+      <td>display_powerup_text(2, "Fast Platform")</td>
+    </tr>
+    <tr>
+      <td>fast_platform_activated_b = True</td>
     </tr>
     <tr>
       <td>&nbsp;</td>
@@ -183,123 +510,6 @@
       <td>&nbsp;</td>
     </tr>
     <tr>
-      <td>pen = turtle.Turtle()</td>
-    </tr>
-    <tr>
-      <td>pen.speed(0)</td>
-    </tr>
-    <tr>
-      <td>pen.color("white")</td>
-    </tr>
-    <tr>
-      <td>pen.penup()</td>
-    </tr>
-    <tr>
-      <td>pen.hideturtle()</td>
-    </tr>
-    <tr>
-      <td>pen.goto(0, 260)</td>
-    </tr>
-    <tr>
-      <td>pen.write("Spelare 1: [0] Spelare 2: (0)", align="center", font=(24))</td>
-    </tr>
-    <tr>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <td># Function to move paddle A up</td>
-    </tr>
-    <tr>
-      <td>def paddle_a_up():</td>
-    </tr>
-    <tr>
-      <td>y = paddle_a.ycor()</td>
-    </tr>
-    <tr>
-      <td>y += 20</td>
-    </tr>
-    <tr>
-      <td>paddle_a.sety(y)</td>
-    </tr>
-    <tr>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <td># Function to move paddle A down</td>
-    </tr>
-    <tr>
-      <td>def paddle_a_down():</td>
-    </tr>
-    <tr>
-      <td>y = paddle_a.ycor()</td>
-    </tr>
-    <tr>
-      <td>y -= 20</td>
-    </tr>
-    <tr>
-      <td>paddle_a.sety(y)</td>
-    </tr>
-    <tr>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <td># Function to move paddle B up</td>
-    </tr>
-    <tr>
-      <td>def paddle_b_up():</td>
-    </tr>
-    <tr>
-      <td>y = paddle_b.ycor()</td>
-    </tr>
-    <tr>
-      <td>y += 20</td>
-    </tr>
-    <tr>
-      <td>paddle_b.sety(y)</td>
-    </tr>
-    <tr>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <td># Function to move paddle B down</td>
-    </tr>
-    <tr>
-      <td>def paddle_b_down():</td>
-    </tr>
-    <tr>
-      <td>y = paddle_b.ycor()</td>
-    </tr>
-    <tr>
-      <td>y -= 20</td>
-    </tr>
-    <tr>
-      <td>paddle_b.sety(y)</td>
-    </tr>
-    <tr>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <td># Keyboard bindings</td>
-    </tr>
-    <tr>
-      <td>win.listen()</td>
-    </tr>
-    <tr>
-      <td>win.onkeypress(paddle_a_up, "w")</td>
-    </tr>
-    <tr>
-      <td>win.onkeypress(paddle_a_down, "s")</td>
-    </tr>
-    <tr>
-      <td>win.onkeypress(paddle_b_up, "Up")</td>
-    </tr>
-    <tr>
-      <td>win.onkeypress(paddle_b_down, "Down")</td>
-    </tr>
-    <tr>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
       <td># Show obstacles</td>
     </tr>
     <tr>
@@ -330,7 +540,7 @@
       <td>&nbsp;</td>
     </tr>
     <tr>
-      <td># Main game loop</td>
+      <td>#main game loop</td>
     </tr>
     <tr>
       <td>start_time = time.time()</td>
@@ -372,7 +582,7 @@
       <td>&nbsp;</td>
     </tr>
     <tr>
-      <td># Move the ball</td>
+      <td>#Move the ball</td>
     </tr>
     <tr>
       <td>ball.setx(ball.xcor() + ball.dx)</td>
@@ -384,7 +594,7 @@
       <td>&nbsp;</td>
     </tr>
     <tr>
-      <td># Border checking</td>
+      <td>#Border collision</td>
     </tr>
     <tr>
       <td>if ball.ycor() > 290:</td>
@@ -411,6 +621,9 @@
       <td>&nbsp;</td>
     </tr>
     <tr>
+      <td>#Score update and ball reset</td>
+    </tr>
+    <tr>
       <td>if ball.xcor() > 390:</td>
     </tr>
     <tr>
@@ -426,10 +639,13 @@
       <td>pen.clear()</td>
     </tr>
     <tr>
-      <td>pen.write("Spelare 1: ({}) Spelare 2: ({})".format(score_a, score_b), align="center", font=(24))</td>
+      <td>pen.write("Spelare 1: [{}] Spelare 2: ({})".format(score_a, score_b), align="center", font=("Courier", 24))</td>
     </tr>
     <tr>
       <td>fastPlatform()</td>
+    </tr>
+    <tr>
+      <td>bigPlatform()</td>
     </tr>
     <tr>
       <td>&nbsp;</td>
@@ -450,16 +666,19 @@
       <td>pen.clear()</td>
     </tr>
     <tr>
-      <td>pen.write("Spelare 1: [{}] Spelare 2: ({})".format(score_a, score_b), align="center", font=(24))</td>
+      <td>pen.write("Spelare 1: [{}] Spelare 2: ({})".format(score_a, score_b), align="center", font=("Courier", 24))</td>
     </tr>
     <tr>
       <td>fastPlatform()</td>
     </tr>
     <tr>
+      <td>bigPlatform()</td>
+    </tr>
+    <tr>
       <td>&nbsp;</td>
     </tr>
     <tr>
-      <td># Paddle and ball collisions</td>
+      <td>#Paddle and ball collisions</td>
     </tr>
     <tr>
       <td>if (ball.dx > 0 and ball.xcor() > 340 and paddle_b.ycor() - 50 < ball.ycor() < paddle_b.ycor() + 50):</td>
@@ -525,85 +744,43 @@
       <td>&nbsp;</td>
     </tr>
     <tr>
-      <td>def fastPlatform():</td>
+      <td>#check for win condition</td>
     </tr>
     <tr>
-      <td>if score_a >= 5:</td>
+      <td>if score_a >= 25:</td>
     </tr>
     <tr>
-      <td>win.onkeypress(paddle_a_up, "w")</td>
+      <td>pen.penup()</td>
     </tr>
     <tr>
-      <td>win.onkeypress(paddle_a_down, "s")</td>
+      <td>pen.goto(0, 0)</td>
     </tr>
     <tr>
-      <td>if score_b >= 5:</td>
+      <td>pen.write("Spelare 1 vinner!!!", move=True, align="center", font=("Comic Sans", 30, "bold"))</td>
     </tr>
     <tr>
-      <td>win.onkeypress(paddle_b_up, "Up")</td>
-    </tr>
-    <tr>
-      <td>win.onkeypress(paddle_b_down, "Down")</td>
+      <td>break</td>
     </tr>
     <tr>
       <td>&nbsp;</td>
     </tr>
     <tr>
-      <td>def paddle_a_up():</td>
+      <td>if score_b >= 25:</td>
     </tr>
     <tr>
-      <td>y = paddle_a.ycor()</td>
+      <td>pen.penup()</td>
     </tr>
     <tr>
-      <td>y += 40</td>
+      <td>pen.goto(0, 0)</td>
     </tr>
     <tr>
-      <td>paddle_a.sety(y)</td>
+      <td>pen.write("Spelare 2 vinner!!!", move=True, align="center", font=("Comic Sans", 30, "bold"))</td>
     </tr>
     <tr>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <td>def paddle_a_down():</td>
-    </tr>
-    <tr>
-      <td>y = paddle_a.ycor()</td>
-    </tr>
-    <tr>
-      <td>y -= 40</td>
-    </tr>
-    <tr>
-      <td>paddle_a.sety(y)</td>
+      <td>break</td>
     </tr>
     <tr>
       <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <td>def paddle_b_up():</td>
-    </tr>
-    <tr>
-      <td>y = paddle_b.ycor()</td>
-    </tr>
-    <tr>
-      <td>y += 40</td>
-    </tr>
-    <tr>
-      <td>paddle_b.sety(y)</td>
-    </tr>
-    <tr>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <td>def paddle_b_down():</td>
-    </tr>
-    <tr>
-      <td>y = paddle_b.ycor()</td>
-    </tr>
-    <tr>
-      <td>y -= 40</td>
-    </tr>
-    <tr>
-      <td>paddle_b.sety(y)</td>
     </tr>
   </tbody>
 </table>
