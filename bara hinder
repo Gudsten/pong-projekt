@@ -1,0 +1,57 @@
+import time
+
+# Obstacles
+obstacle_left = turtle.Turtle()
+obstacle_left.speed(0)
+obstacle_left.shape("square")
+obstacle_left.color("red")
+obstacle_left.shapesize(stretch_wid=5, stretch_len=2)
+obstacle_left.penup()
+obstacle_left.goto(-175, 0)
+obstacle_left.hideturtle()
+
+obstacle_right = turtle.Turtle()
+obstacle_right.speed(0)
+obstacle_right.shape("square")
+obstacle_right.color("red")
+obstacle_right.shapesize(stretch_wid=5, stretch_len=2)
+obstacle_right.penup()
+obstacle_right.goto(175, 0)
+obstacle_right.hideturtle()
+
+# Show obstacles
+def show_obstacles():
+    obstacle_left.showturtle()
+    obstacle_right.showturtle()
+
+# Hide obstacles
+def hide_obstacles():
+    obstacle_left.hideturtle()
+    obstacle_right.hideturtle()
+
+# Main game loop
+start_time = time.time()
+while True:
+    win.update()
+
+    current_time = time.time()
+    elapsed_time = current_time - start_time
+
+    # Toggle obstacles every 15 seconds
+    if int(elapsed_time // 15) % 2 == 0:
+        show_obstacles()
+    else:
+        hide_obstacles()
+        
+# Obstacle and ball collision
+    if obstacle_left.isvisible() and (-195 < ball.xcor() < -155 and obstacle_left.ycor() - 50 < ball.ycor() < obstacle_left.ycor() + 50):
+        if abs(ball.xcor() + 175) > abs(ball.ycor()):
+            ball.dx *= -1
+        else:
+            ball.dy *= -1
+
+    if obstacle_right.isvisible() and (155 < ball.xcor() < 195 and obstacle_right.ycor() - 50 < ball.ycor() < obstacle_right.ycor() + 50):
+        if abs(ball.xcor() - 175) > abs(ball.ycor()):
+            ball.dx *= -1
+        else:
+            ball.dy *= -1
