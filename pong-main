@@ -124,7 +124,7 @@ def fastPlatform():
         win.onkeypress(lambda: paddle_b.sety(paddle_b.ycor() - 40), "Down")
         display_powerup_text(2, "Fast Platform")
 
-# Obstacles
+# Obstacles are red squares on both sides of the middle 
 obstacle_left = turtle.Turtle()
 obstacle_left.speed(0)
 obstacle_left.shape("square")
@@ -153,22 +153,26 @@ def hide_obstacles():
     obstacle_left.hideturtle()
     obstacle_right.hideturtle()
 
+#Main game loop, start time and updates display
 start_time = time.time()
 while True:
     win.update()
 
+#How much time has passed
     current_time = time.time()
     elapsed_time = current_time - start_time
 
-    # Toggle obstacles every 15 seconds
+    # Toggles the obstacles every 15 seconds
     if int(elapsed_time // 15) % 2 == 0:
         show_obstacles()
     else:
         hide_obstacles()
 
+#updates the balls position based on its velocity
     ball.setx(ball.xcor() + ball.dx)
     ball.sety(ball.ycor() + ball.dy)
 
+#prevents the ball from going outside the vertical bounderies of the game
     if ball.ycor() > 290:
         ball.sety(290)
         ball.dy *= -1
@@ -177,6 +181,7 @@ while True:
         ball.sety(-290)
         ball.dy *= -1
 
+#if the balls X cordinates exceedes 390 or -390 we have a goal and the ball position is reset to the middle 
     if ball.xcor() > 390:
         ball.goto(0, 0)
         ball.dx *= -1
@@ -195,6 +200,7 @@ while True:
         fastPlatform()
         bigPlatform()
 
+#paddle and ball collisions
     if (ball.dx > 0 and ball.xcor() > 340 and paddle_b.ycor() - 50 < ball.ycor() < paddle_b.ycor() + 50):
         ball.setx(340)
         ball.dx *= -1
@@ -203,7 +209,7 @@ while True:
         ball.setx(-340)
         ball.dx *= -1
 
-    # Obstacle and ball collision
+    #Handling of obstacle and ball collision if the obstacles are visible
     if obstacle_left.isvisible() and (-195 < ball.xcor() < -155 and obstacle_left.ycor() - 50 < ball.ycor() < obstacle_left.ycor() + 50):
         if abs(ball.xcor() + 175) > abs(ball.ycor()):
             ball.dx *= -1
@@ -216,6 +222,7 @@ while True:
         else:
             ball.dy *= -1
 
+#The first player to reach a score of 25 wins and the game ends
     if score_a >= 25:
         pen.penup()
         pen.goto(0, 0)
