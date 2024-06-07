@@ -11,11 +11,6 @@ score_a = 0
 score_b = 0
 win_condition = 25
 
-big_platform_activated_a = False
-big_platform_activated_b = False
-fast_platform_activated_a = False
-fast_platform_activated_b = False
-
 paddle_a = turtle.Turtle()
 paddle_a.speed(0)
 paddle_a.shape("square")
@@ -109,31 +104,25 @@ def move_powerup_text(player, powerup, time_left):
         powerup_pen.clear()
 
 def bigPlatform():
-    global big_platform_activated_a, big_platform_activated_b
-    if score_a >= 5 and not big_platform_activated_a:
+    if score_a >= 5:
         paddle_a.shapesize(stretch_wid=12, stretch_len=1)
 
         display_powerup_text(1, "Big Platform")
 
-        big_platform_activated_a = True
-    if score_b >= 5 and not big_platform_activated_b:
+    if score_b >= 5:
         paddle_b.shapesize(stretch_wid=12, stretch_len=1)
         
         display_powerup_text(2, "Big Platform")
-        big_platform_activated_b = True
 
 def fastPlatform(): 
-    global fast_platform_activated_a, fast_platform_activated_b
-    if score_a >= 10 and not fast_platform_activated_a:
+    if score_a >= 10:
         win.onkeypress(lambda: paddle_a.sety(paddle_a.ycor() + 40), "w")
         win.onkeypress(lambda: paddle_a.sety(paddle_a.ycor() - 40), "s")
         display_powerup_text(1, "Fast Platform")
-        fast_platform_activated_a = True
-    if score_b >= 10 and not fast_platform_activated_b:
+    if score_b >= 10:
         win.onkeypress(lambda: paddle_b.sety(paddle_b.ycor() + 40), "Up")
         win.onkeypress(lambda: paddle_b.sety(paddle_b.ycor() - 40), "Down")
         display_powerup_text(2, "Fast Platform")
-        fast_platform_activated_b = True
 
 # Obstacles
 obstacle_left = turtle.Turtle()
@@ -238,3 +227,4 @@ while True:
         pen.goto(0, 0)
         pen.write("Spelare 2 vinner!!!", move=True, align="center", font=("Comic Sans", 30, "bold"))
         break
+
