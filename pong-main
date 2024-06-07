@@ -1,33 +1,38 @@
 import turtle
 import time
 
+# Sets drawing speed, 0 in this case as there's no need to draw anything
 win = turtle.Screen() # Sets up turtle screen
 win.title("Pong Game") # Title turtle screen
 win.bgcolor("black") # Color of window of the game
 win.setup(width=800, height=600) # Sets resolution on window
-win.tracer(0) # Sets drawing speed, 0 in this case as there's no need to draw anything
+win.tracer(0) 
 
+# Sets win_condition at 25
 score_a = 0 # Setting up a score
 score_b = 0 # Setting up b score
-win_condition = 25 # Sets win_condition at 25
+win_condition = 25 
 
+# Sets the paddles starting location on the left side 
 paddle_a = turtle.Turtle() # Using Turtle for the paddle
 paddle_a.speed(0) # Sets starting speed to 0
 paddle_a.shape("square") # Shape of paddle
 paddle_a.color("white") # Color of paddle
 paddle_a.shapesize(stretch_wid=6, stretch_len=1) # Setting size of paddle
 paddle_a.penup() # Lifts pen so it doesn't draw while moving
-paddle_a.goto(-350, 0) # Sets the paddles starting location on the left side 
+paddle_a.goto(-350, 0) 
 
+# Places paddle on right side of the window
 paddle_b = turtle.Turtle()  # Using Turtle for the paddle
 paddle_b.speed(0) # Sets starting speed to 0
 paddle_b.shape("square") # Shape of Paddle
 paddle_b.color("white") # Color of paddle
 paddle_b.shapesize(stretch_wid=6, stretch_len=1) # Setting size of paddle
 paddle_b.penup() # 'no writing' mode
-paddle_b.goto(350, 0) # Places paddle on right side of the window
+paddle_b.goto(350, 0) 
 
-ball = turtle.Turtle() # Sets ball to turtle
+# Sets ball to turtle
+ball = turtle.Turtle() 
 ball.speed(20) # Ball initial speed
 ball.shape("square") # Shape of ball
 ball.color("white") # Color of ball
@@ -36,7 +41,8 @@ ball.goto(0, 0) # Goes to middle
 ball.dx = 0.2 # Sets intital speed of ball
 ball.dy = 0.2 # ^
 
-pen = turtle.Turtle() # Sets up the scoreboard text at the top
+ # Sets up the scoreboard text at the top
+pen = turtle.Turtle()
 pen.speed(0)
 pen.color("white")
 pen.penup()
@@ -44,7 +50,8 @@ pen.hideturtle()
 pen.goto(0, 260)
 pen.write("Spelare 1: [0] Spelare 2: (0)", align="center", font=("Courier", 24))
 
-def paddle_a_up(): # Defines the speed of the paddles going up and down
+# Defines the speed of the paddles going up and down
+def paddle_a_up(): 
     y = paddle_a.ycor()
     y += 20 # Speed
     paddle_a.sety(y)
@@ -64,13 +71,15 @@ def paddle_b_down():
     y -= 20
     paddle_b.sety(y)
 
-win.listen() # Sets keybinds for player A and player B
+ # Sets keybinds for player A and player B
+win.listen()
 win.onkeypress(paddle_a_up, "w")
 win.onkeypress(paddle_a_down, "s")
 win.onkeypress(paddle_b_up, "Up")
 win.onkeypress(paddle_b_down, "Down")
 
-powerup_pen = turtle.Turtle() # Initiating the pen for the powerup text in the middle
+# Initiating the pen for the powerup text in the middle
+powerup_pen = turtle.Turtle() 
 powerup_pen.speed(0)
 powerup_pen.color("yellow")
 powerup_pen.penup()
@@ -86,20 +95,23 @@ def display_powerup_text(player, powerup): # Uses the above code to put out the 
     
     win.ontimer(lambda: start_corner_timer(player, powerup), 2000)
 
-def start_corner_timer(player, powerup): # Timer for the powerups countdown in the corner
+ # Timer for the powerups countdown in the corner
+def start_corner_timer(player, powerup):
     powerup_pen.clear()
     move_powerup_text(player, powerup, 10)
 
-def move_powerup_text(player, powerup, time_left): # Function for moving the initial yellow powerup text in the middle to the corner
+# Function for moving the initial yellow powerup text in the middle to the corner
+def move_powerup_text(player, powerup, time_left): 
     powerup_pen.clear()
     if player == 1:
         powerup_pen.goto(-350, 250) # If player 1 gets powerup move it to left corner
     else:
         powerup_pen.goto(350, 250)
 
+# Sets up the timer in corner when powerup gets activated
     if time_left > 0:
         powerup_pen.write(f"{powerup}: {time_left}s", align="center", font=("Courier", 18)) # If player 2 gets powerup move it to the right corner
-        win.ontimer(lambda: move_powerup_text(player, powerup, time_left - 1), 1000) # Sets up the timer in corner when powerup gets activated
+        win.ontimer(lambda: move_powerup_text(player, powerup, time_left - 1), 1000) 
     else:
         powerup_pen.clear()
 
@@ -114,8 +126,9 @@ def bigPlatform():
         
         display_powerup_text(2, "Big Platform")
 
+# If A score equals to 10 make platform faster
 def fastPlatform(): 
-    if score_a >= 10: # If A score equals to 10 make platform faster
+    if score_a >= 10: 
         win.onkeypress(lambda: paddle_a.sety(paddle_a.ycor() + 40), "w")
         win.onkeypress(lambda: paddle_a.sety(paddle_a.ycor() - 40), "s")
         display_powerup_text(1, "Fast Platform")
